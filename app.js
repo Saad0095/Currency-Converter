@@ -1,4 +1,5 @@
 const base_url = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
+
 const base_fallback_url = "https://latest.currency-api.pages.dev/v1/currencies";
 
 let amount = document.querySelector("#amount");
@@ -19,11 +20,14 @@ for (let select of dropdowns) {
         if (select.name === "from" && currCode === "USD") {
             newOption.selected = "selected"
         }
+
         else if (select.name === "to" && currCode === "PKR") {
             newOption.selected = "selected"
         }
+
         select.append(newOption)
     }
+
     select.addEventListener("change", (event) => {
         updateFlag(event.target)
     })
@@ -61,10 +65,7 @@ const getExchangeRate = async () => {
     try {
         let response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch Exchange rate')
-        console.log(response);
         let data = await response.json();
-        console.log(data)
-
         let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
 
         if (rate) {
